@@ -356,6 +356,67 @@
     @media (max-width: 767px) {
       #navbar { padding: 1.125rem 1.25rem; }
     }
+
+    /* ── MOBILE HERO — album art layout ── */
+    @media (max-width: 767px) {
+      .hero-wrap {
+        justify-content: flex-start;
+      }
+      /* Center image so comet top + forest bottom both show */
+      .hero-bg-img {
+        background-position: center center;
+        background-size: cover;
+      }
+      /* Lighter overlay — subtle vignette only, no heavy bottom crush */
+      .hero-overlay {
+        background:
+          radial-gradient(ellipse 120% 60% at 50% 50%, transparent 30%, rgba(8,20,25,0.55) 100%),
+          linear-gradient(to bottom, rgba(8,20,25,0.45) 0%, transparent 18%, transparent 65%, rgba(8,20,25,0.7) 85%, #081419 100%);
+      }
+      /* Kill glow on mobile */
+      .hero-glow { display: none; }
+
+      /* Hide desktop content block */
+      .hero-desktop-content { display: none !important; }
+      /* Show mobile content block */
+      .hero-mobile-content { display: flex !important; }
+    }
+    @media (min-width: 768px) {
+      .hero-mobile-content { display: none !important; }
+      .hero-desktop-content { display: flex; }
+    }
+
+    /* Mobile hero content structure */
+    .hero-mobile-content {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 2rem;
+    }
+    /* Logo block — center of screen like album art */
+    .mob-hero-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    /* Bottom CTA strip pinned to screen bottom */
+    .mob-hero-cta {
+      position: absolute;
+      bottom: 2.75rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.875rem;
+      padding: 0 2rem;
+    }
   </style>
 </head>
 <body>
@@ -400,7 +461,8 @@
   <div class="hero-overlay"></div>
   <div class="hero-glow"></div>
 
-  <div class="relative z-10 flex flex-col items-center px-6 max-w-4xl mx-auto" style="padding-top:80px;">
+  <!-- ── DESKTOP HERO CONTENT ── -->
+  <div class="hero-desktop-content relative z-10 flex-col items-center px-6 max-w-4xl mx-auto" style="padding-top:80px;">
 
     <!-- Eyebrow -->
     <div class="fade-up flex items-center gap-3 mb-7">
@@ -431,8 +493,36 @@
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="fade-up delay-5 absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5" style="opacity:0.45;">
+  <!-- ── MOBILE HERO CONTENT — album art layout ── -->
+  <div class="hero-mobile-content fade-up">
+
+    <!-- Center: Logo + tagline (mirrors album art composition) -->
+    <div class="mob-hero-logo">
+      <img
+        src="brand_assets/Cenaris Logo.png"
+        alt="Cenaris"
+        style="height:72px;width:auto;filter:brightness(0) invert(1);margin-bottom:0.5rem;"
+      />
+      <p style="font-size:0.6rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:rgba(185,206,198,0.45);margin-top:0.25rem;">Meditation Hub</p>
+    </div>
+
+    <!-- Bottom: headline + CTAs pinned to bottom -->
+    <div class="mob-hero-cta">
+      <h1 class="font-display" style="font-size:2.75rem;font-weight:300;line-height:1.0;letter-spacing:-0.03em;color:#F5F1E8;text-align:center;margin-bottom:1.375rem;">
+        Find Your <em style="font-style:italic;color:#B9CEC6;">Still</em>
+      </h1>
+      <a href="#join" class="btn-primary" style="font-size:0.8rem;padding:0.8rem 1.75rem;width:100%;justify-content:center;">
+        Begin Your Journey
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#sessions" class="btn-ghost" style="font-size:0.8rem;padding:0.8rem 1.75rem;width:100%;justify-content:center;">
+        Explore Sessions
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator (desktop only) -->
+  <div class="fade-up delay-5 absolute bottom-10 left-1/2 -translate-x-1/2 flex-col items-center gap-2.5 hidden md:flex" style="opacity:0.45;">
     <div class="scroll-mouse"><div class="scroll-dot"></div></div>
     <span style="font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,241,232,0.5);">Scroll</span>
   </div>
